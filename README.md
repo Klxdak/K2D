@@ -1,1 +1,1 @@
-# K2D
+# K2D Generator haseł
