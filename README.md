@@ -99,7 +99,7 @@ Projekt zawiera `Dockerfile`, więc można uruchomić go w kontenerze.
 ![Uruchomienie w Dockerze](zdjecia/zdjęcie_Docker_run.png)
 
 ### Uruchomienie testów
-![Uruchomienie testów](zdjecia/zdjęcie_testu.png)
+![Uruchomienie testów](zdjecia/zdjecie_testu.png)
 
 W kontenerze wykonywane są testy (`pytest`), a następnie uruchamiany jest `src/generator.py`.
 W środowisku bez GUI aplikacja wypisze komunikat o braku środowiska graficznego.
