@@ -1,51 +1,139 @@
 # Generator bezpiecznych haseł
 
-# Badge: ![Python CI](https://github.com/Klxdak/K2D/actions/workflows/main.yml/badge.svg)
+![Python CI](https://github.com/Klxdak/K2D/actions/workflows/main.yml/badge.svg)
 
-Aplikacja umożliwia generowanie losowych haseł o określonej długości i złożoności.
+## Krótki opis
+Projekt studencki w Pythonie z interfejsem graficznym (`customtkinter`), który generuje losowe hasła o konfigurowalnej długości i złożoności.
 
-## Funkcje generatora:
-- Regulacja długości hasła (parametr dlugosc_hasla)
-- Możliwość włączenia i wyłączenia cyfr (parametr uzyj_cyfr)
-- Możliwość włączenia i wyłączenia znaków specjalnych (parametr uzyj_specjalnych)
-- Możliwość włączenia i wyłączenia dużych liter (parametr uzyj_duzych)
-- Historia haseł z możliwością kopiowania
-- Tryb nocny i dzienny
+## Funkcje
+- Generowanie hasła o długości od 4 do 32 znaków (domyślnie 12).
+- Włączanie i wyłączanie dużych liter.
+- Włączanie i wyłączanie cyfr.
+- Włączanie i wyłączanie znaków specjalnych.
+- Kopiowanie aktualnie wygenerowanego hasła do schowka.
+- Ocena siły hasła (`Słabe`, `Średnie`, `Mocne`) z paskiem postępu.
+- Historia ostatnich 15 haseł z możliwością kopiowania.
+- Przełączanie trybu jasny/ciemny.
 
 ## Wymagania
-Do poprawnego działania testów jest zainstalowana biblioteka pytest.
+- Python 3.12 (zgodnie z `Dockerfile` i workflow CI).
+- `pip` do instalacji zależności.
+- Środowisko graficzne systemu (aplikacja jest okienkowa, `customtkinter`/`tkinter`).
+
+Zależności projektowe znajdują się w pliku `requirements.txt`:
+- `customtkinter`
+- `pytest`
+- `flake8`
+
+## Instalacja
+1. Sklonuj repozytorium:
+   ```bash
+   git clone https://github.com/Klxdak/K2D.git
+   ```
+2. Przejdź do katalogu projektu:
+   ```bash
+   cd K2D
+   ```
+3. (Opcjonalnie) utwórz środowisko wirtualne:
+   ```bash
+   python -m venv .venv
+   ```
+4. (Opcjonalnie) aktywuj środowisko wirtualne:
+
+   Windows:
+   ```bash
+   .venv\Scripts\activate
+5. Zainstaluj zależności z `requirements.txt`:
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+
+## Jak uruchomić aplikację
+```bash
+python src/generator.py
+```
+
+W systemie Windows możesz również użyć:
+
+```bash
+py src/generator.py
+```
+
+## Jak korzystać z generatora
+1. Ustaw długość hasła suwakiem.
+2. Zaznacz, czy hasło ma zawierać duże litery, cyfry i symbole.
+3. Kliknij `Generuj`.
+4. Skopiuj hasło przyciskiem `Kopiuj`.
+5. Sprawdź siłę hasła na pasku i etykiecie (`Słabe` / `Średnie` / `Mocne`).
+6. Otwórz `Historia`, aby zobaczyć i skopiować wcześniej wygenerowane hasła.
+7. Przełącz tryb jasny/ciemny przełącznikiem `Tryb`.
 
 ## Testowanie
-Automatyczne testy jednostkowe + screenshoty testów
+Uruchamianie testów jednostkowych:
 
-Komenda: 
 ```bash
-py -m pytest
+python -m pytest
 ```
-![Zdjęcie testów](zdjecia/zdjecie_testu.png)
 
-## Struktura folderów
-- **src/generator.py:** Kod generatora Python.
-- **tests/test_generator.py:** Skrypt testowy.
-- **requiremenets.txt:** Lista zależności projektowych.
-- **gitignore:** Ignorowanie niepotrzebnych plików na Github
+Zakres testów w `tests/test_generator.py` obejmuje:
+- długość domyślną hasła,
+- długość zadaną przez parametr,
+- generowanie wyłącznie liter (po wyłączeniu cyfr i znaków specjalnych),
+- losowość kolejnych wygenerowanych haseł.
 
-  
-## CI/CD, badge, Dockerfile (Checkpoint 2)
+## Docker
+Projekt zawiera `Dockerfile`, więc można uruchomić go w kontenerze.
 
-Projekt został w pełni zautomatyzowany i przeniesiony do środowiska Docker.
+1. Zbuduj obraz:
+   ```bash
+   docker build -t password-generator .
+   ```
+2. Uruchom kontener:
+   ```bash
+   docker run --rm password-generator
+   ```
 
-### Główne zmiany:
-* **Docker:** Aplikacja posiada `Dockerfile`, który buduje izolowane środowisko z Pythonem 3.12
-* **GitHub Actions:** Każdy `push` automatycznie uruchamia proces:
-    - **Linting** (flake8) - sprawdzanie czystości kodu.
-    - **Testy jednostkowe** (pytest) - weryfikacja logiki.
-    - **Docker** - budowanie obrazu i wysyłka na Docker Hub.
-    - **Testowe uruchomienie generatora** - pokazowe wygenerowanie hasła w logach GitHuba.
+## Zrzuty ekranu
 
-### Uruchomienie przez Docker:
-Obraz znajduje się na Docker Hub. Aby go uruchomić:
+### Uruchomienie w Dockerze
+![Uruchomienie w Dockerze](zdjecia/zdjęcie_Docker_run.png)
+
+### Uruchomienie testów
+![Uruchomienie testów](zdjecia/zdjęcie_testu.png)
+
+W kontenerze wykonywane są testy (`pytest`), a następnie uruchamiany jest `src/generator.py`.
+W środowisku bez GUI aplikacja wypisze komunikat o braku środowiska graficznego.
+
+Możesz też uruchomić obraz publikowany w Docker Hub:
+
 ```bash
 docker run --rm kvbikk/password-generator:latest
 ```
-![Zdjęcie testu](zdjecia/zdjęcie_Docker_run.png)
+
+## Struktura projektu
+```text
+K2D/
+├── .github/workflows/main.yml
+├── Dockerfile
+├── README.md
+├── requirements.txt
+├── src/
+│   ├── generator.py
+│   └── logika.py
+├── tests/
+│   └── test_generator.py
+└── zdjecia/
+```
+
+## CI/CD
+Workflow GitHub Actions (`.github/workflows/main.yml`) uruchamia się dla `push` i `pull_request` na gałąź `main` i wykonuje:
+- instalację zależności,
+- linting (`flake8`),
+- testy (`pytest`),
+- logowanie do Docker Hub,
+- budowanie i publikację obrazu Docker,
+- próbę uruchomienia aplikacji.
+
+## Autorzy / informacje o projekcie
+- Projekt wykonany jako aplikacja studencka.
+- Technologia: Python + customtkinter + pytest + Docker + GitHub Actions.
