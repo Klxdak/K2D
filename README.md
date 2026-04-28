@@ -5,6 +5,10 @@
 ## Krótki opis
 Projekt studencki w Pythonie z interfejsem graficznym (`customtkinter`), który generuje losowe hasła o konfigurowalnej długości i złożoności.
 
+## Podgląd działania aplikacji
+
+![Działanie aplikacji](zdjecia/demo_generator.gif)
+
 ## Funkcje
 - Generowanie hasła o długości od 4 do 32 znaków (domyślnie 12).
 - Włączanie i wyłączanie dużych liter.
