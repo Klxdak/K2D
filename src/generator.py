@@ -206,4 +206,3 @@ try:
 
 except TclError:
     print("Brak środowiska graficznego")
-    
