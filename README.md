@@ -1,6 +1,6 @@
 # Generator bezpiecznych haseł
 
-![Python CI](https://github.com/Klxdak/K2D/actions/workflows/main.yml/badge.svg)
+  ![Python CI](https://github.com/Klxdak/K2D/actions/workflows/main.yml/badge.svg)
 
 ## Krótki opis
 Projekt studencki w Pythonie z interfejsem graficznym (`customtkinter`), który generuje losowe hasła o konfigurowalnej długości i złożoności.
